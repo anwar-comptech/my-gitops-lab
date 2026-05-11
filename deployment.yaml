@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitops-test-area
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-gitops-nginx
+  namespace: gitops-test-area
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gitops-nginx
+  template:
+    metadata:
+      labels:
+        app: gitops-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
